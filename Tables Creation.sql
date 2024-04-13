@@ -21,7 +21,8 @@ CREATE TABLE room(room_id number primary key,
 CREATE TABLE guest(guest_id number primary key,
                                 guest_name varchar2(25),
                                 guest_phone varchar2(25),
-                                guest_email varchar2(35)
+                                guest_email varchar2(35),
+                                guest_address varchar2(25)
                                 );
 
 
