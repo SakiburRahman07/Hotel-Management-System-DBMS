@@ -39,4 +39,7 @@ select * from room_reservation where reservation_status = 'confirmed';
 select * from room_reservation where reservation_status = 'confirmed'
 intersect
 select * from room_reservation where payment_status = 'unpaid';
-
+--except
+select * from room_reservation where reservation_status = 'confirmed'
+minus
+select * from room_reservation where payment_status = 'unpaid';
