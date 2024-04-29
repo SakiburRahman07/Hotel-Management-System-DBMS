@@ -22,3 +22,11 @@ begin
 insert into room values(r_id,h_id,r_price,r_size,r_capacity);
 end;
 /
+--row type
+set serveroutput on
+declare 
+hotel_row hotel%rowtype;
+begin
+select hotel_id,hotel_name,hotel_address, hotel_phone into hotel_row.hotel_id,hotel_row.hotel_name,hotel_row.hotel_address, hotel_row.hotel_phone from hotel where hotel_id=1;
+end;
+/
