@@ -52,3 +52,10 @@ BEGIN
     INSERT INTO room_registry VALUES(:Old.room_id, :Old.hotel_id, sysdate, 'available');
     
 END;
+
+--show error
+show errors;
+--show all trigger
+select * from user_triggers;
+--drop trigger
+drop trigger updateevent;
