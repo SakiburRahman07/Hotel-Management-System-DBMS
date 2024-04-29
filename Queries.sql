@@ -54,3 +54,7 @@ select max(room_price) from room;
 select min(room_price) from room;
 select avg(room_price) from room;
 select sum(room_capacity) from room;
+--Group by
+select room_size,avg(room_price) from room group by room_size;
+--Having
+select hotel_id, room_size, avg(room_price) as avg_price from room group by hotel_id, room_size having min(room_price) > 500;
