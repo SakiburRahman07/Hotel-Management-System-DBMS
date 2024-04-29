@@ -15,3 +15,6 @@ describe hotel
 --add column in a table
 alter table hotel add notuncolumn varchar2(100);
 describe hotel;
+--Modify column definition in the table
+alter table hotel modify notuncolumn integer;
+describe hotel;
