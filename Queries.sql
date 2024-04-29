@@ -80,3 +80,10 @@ select * from guest where guest_age > all (select guest_age from guest where gue
 select * from guest where guest_age>=11 and exists(select * from guest where guest_name like '%s%');
 --unique
 select count(distinct guest_name) as Unique_guest_name from guest;
+--string operation
+select * from event where event_name like 'D%';
+select * from event where event_name like '%t';
+select * from event where event_name like '%e%';
+select * from event where event_name like '%a%s%';
+select * from event where event_name like '__________________';
+select * from event where event_name like '__________________' or event_name like '________________________';
