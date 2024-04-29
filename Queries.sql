@@ -12,3 +12,6 @@ select table_name from user_tables;
 drop table hotel;
 --see table attribute and their domain
 describe hotel
+--add column in a table
+alter table hotel add notuncolumn varchar2(100);
+describe hotel;
