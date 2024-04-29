@@ -72,4 +72,11 @@ select * from guest where guest_nationality = 'Bangladeshi' or guest_nationality
 select * from guest where not (guest_gender = 'female');
 --complex
 select * from guest where (guest_gender = 'male' or guest_nationality = 'Bangladeshi') and guest_age > 25;
-
+--some
+select * from guest where guest_age >= some (select guest_age from guest where guest_gender = 'female');
+--all
+select * from guest where guest_age > all (select guest_age from guest where guest_gender = 'female');
+--exist
+select * from guest where guest_age>=11 and exists(select * from guest where guest_name like '%s%');
+--unique
+select count(distinct guest_name) as Unique_guest_name from guest;
