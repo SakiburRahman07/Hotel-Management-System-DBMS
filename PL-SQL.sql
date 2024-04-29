@@ -70,6 +70,27 @@ begin
   END LOOP;
 end;
 /
+--ARRAY without extend() function
+DECLARE 
+   counter NUMBER := 1;
+   h_name hotel.hotel_name%TYPE;
+   TYPE HOTELNAME IS VARRAY(5) OF hotel.hotel_name%TYPE;
+   HOTELARRAY HOTELNAME:=HOTELNAME('Hotel 1', 'Hotel 2', 'Hotel 3', 'Hotel 4', 'Hotel 5'); 
+BEGIN
+   counter := 1;
+   FOR x IN 1..5  
+   LOOP
+      SELECT hotel_name INTO H_name FROM hotel WHERE hotel_id=x;
+      HOTELARRAY(counter) := h_name;
+      counter := counter + 1;
+   END LOOP;
+   counter := 1;
+   WHILE counter <= HOTELARRAY.COUNT 
+   LOOP 
+      DBMS_OUTPUT.PUT_LINE(HOTELARRAY(counter)); 
+      counter := counter + 1;
+   END LOOP;
+END;
 
 --function
 set serveroutput on
