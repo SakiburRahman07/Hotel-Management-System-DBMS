@@ -63,3 +63,13 @@ select hotel_name from hotel where hotel_id=
  (select hotel_id from room where room_id=
  (select room_id from room_reservation where guest_id=
  (select guest_id from event_in_hotel where reserv_id=103)));
+ --set operation
+--and 
+select * from guest where guest_gender = 'male' and guest_age > 30;
+--or
+select * from guest where guest_nationality = 'Bangladeshi' or guest_nationality = 'Canada';
+--not
+select * from guest where not (guest_gender = 'female');
+--complex
+select * from guest where (guest_gender = 'male' or guest_nationality = 'Bangladeshi') and guest_age > 25;
+
