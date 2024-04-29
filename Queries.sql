@@ -8,3 +8,5 @@ set linesize 200
 show user
 --checking the existing table in database
 select table_name from user_tables;
+--droping hotel table from database 
+drop table hotel;
