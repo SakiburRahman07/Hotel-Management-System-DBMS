@@ -43,4 +43,6 @@ select * from room_reservation where payment_status = 'unpaid';
 select * from room_reservation where reservation_status = 'confirmed'
 minus
 select * from room_reservation where payment_status = 'unpaid';
-
+--with clause
+with max_price_room(value) as (select max(room_price) from room)
+select * from room,max_price_room where room.room_price=max_price_room.value;
