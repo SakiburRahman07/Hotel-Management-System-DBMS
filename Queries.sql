@@ -10,3 +10,5 @@ show user
 select table_name from user_tables;
 --droping hotel table from database 
 drop table hotel;
+--see table attribute and their domain
+describe hotel
