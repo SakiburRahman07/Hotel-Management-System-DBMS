@@ -30,3 +30,19 @@ begin
 select hotel_id,hotel_name,hotel_address, hotel_phone into hotel_row.hotel_id,hotel_row.hotel_name,hotel_row.hotel_address, hotel_row.hotel_phone from hotel where hotel_id=1;
 end;
 /
+--Cursor and row count
+set serveroutput on
+declare 
+cursor room_cursor is select * from room;
+room_row room%rowtype;
+begin
+open room_cursor;
+fetch room_cursor into room_row.room_id,room_row.hotel_id,room_row.room_price,room_row.room_size,room_row.room_capacity;
+while room_cursor%found loop
+dbms_output.put_line('Room ID : '||room_row.room_id|| ' Hotel ID : '||room_row.hotel_id || ' Room Price : ' ||room_row.room_price || ' Room Size : '||room_row.room_size || 'Room Capacity : ' || room_row.room_capacity);
+dbms_output.put_line('Room count: '|| room_cursor%rowcount);
+fetch room_cursor into room_row.room_id,room_row.hotel_id,room_row.room_price,room_row.room_size,room_row.room_capacity;
+end loop;
+close room_cursor;
+end;
+/
