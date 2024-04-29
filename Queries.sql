@@ -21,3 +21,6 @@ describe hotel;
 --Rename the column name
 alter table hotel rename column notuncolumn to newcolumn;
 describe hotel;
+--Drop the column from table
+alter table hotel drop column newcolumn;
+describe hotel;
