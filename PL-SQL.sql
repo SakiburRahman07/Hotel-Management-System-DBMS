@@ -10,3 +10,15 @@ select hotel_name,hotel_address,hotel_phone into h_name,h_address,h_phone from h
 dbms_output.put_line('Hotel Name : '||h_name|| ' Hotel Address: '||h_address || ' h_phone: '||h_phone);
 end;
 /
+--Insert and set default value
+set serveroutput on
+declare 
+r_id room.room_id%type:=11;
+h_id room.hotel_id%type:=1;
+r_price ROOM.ROOM_PRICE%type:=250;
+r_size ROOM.ROOM_SIZE%type:='small';
+r_capacity number:=7;
+begin
+insert into room values(r_id,h_id,r_price,r_size,r_capacity);
+end;
+/
