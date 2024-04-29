@@ -35,4 +35,8 @@ delete from  event where event_id=6;
 select * from room_reservation where payment_status = 'paid'
 union
 select * from room_reservation where reservation_status = 'confirmed';
+--intersect
+select * from room_reservation where reservation_status = 'confirmed'
+intersect
+select * from room_reservation where payment_status = 'unpaid';
 
