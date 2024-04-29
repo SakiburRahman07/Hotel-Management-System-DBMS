@@ -24,3 +24,5 @@ describe hotel;
 --Drop the column from table
 alter table hotel drop column newcolumn;
 describe hotel;
+--Displaying table data using SELECT command
+select * from hotel where hotel_id=1;
