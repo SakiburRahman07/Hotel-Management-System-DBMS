@@ -46,3 +46,27 @@ end loop;
 close room_cursor;
 end;
 /
+--FOR LOOP/WHILE LOOP/ARRAY with extend() function
+set serveroutput on
+declare 
+  counter number;
+  h_name hotel.hotel_name%type;
+  TYPE NAMEARRAY IS VARRAY(5) OF hotel.hotel_name%type; 
+  H_ARRAY NAMEARRAY:=NAMEARRAY();
+begin
+  counter:=1;
+  for x in 1..5  
+  loop
+    select hotel_name into h_name from hotel where hotel_id=x;
+    H_ARRAY.EXTEND();
+    H_ARRAY(counter):=h_name;
+    counter:=counter+1;
+  end loop;
+  counter:=1;
+  WHILE counter<=H_ARRAY.COUNT 
+    LOOP 
+    DBMS_OUTPUT.PUT_LINE(H_ARRAY(counter)); 
+    counter:=counter+1;
+  END LOOP;
+end;
+/
