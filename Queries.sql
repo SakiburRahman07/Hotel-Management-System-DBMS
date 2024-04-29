@@ -43,3 +43,4 @@ select * from room_reservation where payment_status = 'unpaid';
 select * from room_reservation where reservation_status = 'confirmed'
 minus
 select * from room_reservation where payment_status = 'unpaid';
+
