@@ -87,3 +87,14 @@ select * from event where event_name like '%e%';
 select * from event where event_name like '%a%s%';
 select * from event where event_name like '__________________';
 select * from event where event_name like '__________________' or event_name like '________________________';
+--join operation
+select * from room natural join room_reservation where room_id=2;
+select * from event natural join event_in_hotel;
+select * from room join room_reservation using(room_id);
+select * from room join room_reservation on room.room_id=room_reservation.room_id;
+select * from guest left outer join room_reservation using(guest_id);
+select * from guest right outer join room_reservation using(guest_id);
+select * from room full outer join room_reservation using(room_id);
+--views
+create view guest_details as select * from guest join room_reservation using(guest_id);
+select * from guest_details;
