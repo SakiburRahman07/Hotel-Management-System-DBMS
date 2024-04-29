@@ -1,79 +1,80 @@
 -- Creating all tables
-CREATE TABLE hotel( hotel_id number primary key,
-                    hotel_name varchar2(100),
-                    hotel_address varchar2(255),
-                    hotel_phone varchar2(100),
-                    hotel_email varchar2(100),
-                    hotel_type varchar2(100),
-                    CHECK (hotel_type in ('3star' , '5star', '7star' ))
-                    );
-                               
+create table hotel(
+    hotel_id number primary key,
+    hotel_name varchar2(100),
+    hotel_address varchar2(255),
+    hotel_phone varchar2(100),
+    hotel_email varchar2(100),
+    hotel_type varchar2(100),
+    check (hotel_type in ('3star', '5star', '7star'))
+);
 
-CREATE TABLE room(room_id number primary key,
-                    hotel_id number,
-                    room_price number,
-                    room_size varchar2(100),
-                    room_capacity number,
-                    CONSTRAINT room_fk FOREIGN KEY(hotel_id)
-                    REFERENCES hotel(hotel_id),
-                    CONSTRAINT room_size_ck
-                    CHECK (Room_Size in ('small' , 'medium' , 'large' ))
-                               );
-                               
-        
-CREATE TABLE guest(guest_id number primary key,
-                                guest_name varchar2(100),
-                                guest_phone varchar2(100),
-                                guest_email varchar2(100),
-                                guest_address varchar2(255),
-                                guest_age integer,
-                                guest_gender varchar2(100) CHECK (guest_gender IN ('male', 'female')),
-                                guest_nationality varchar2(100),
-                                CONSTRAINT check_gender_age CHECK (
-                                 (guest_gender = 'male' AND guest_age >= 5 AND guest_age <= 150) OR
-                                 (guest_gender = 'female' AND guest_age >= 10 AND guest_age <= 150) 
-                                  )
-                                );
+create table room(
+    room_id number primary key,
+    hotel_id number,
+    room_price number,
+    room_size varchar2(100),
+    room_capacity number,
+    foreign key(hotel_id) references hotel(hotel_id) on delete cascade,
+    constraint room_size_ck
+        check (room_size in ('small', 'medium', 'large'))
+);
 
+create table guest(
+    guest_id number primary key,
+    guest_name varchar2(100),
+    guest_phone varchar2(100),
+    guest_email varchar2(100),
+    guest_address varchar2(255),
+    guest_age integer,
+    guest_gender varchar2(100) check (guest_gender in ('male', 'female')),
+    guest_nationality varchar2(100),
+    constraint check_gender_age check (
+        (guest_gender = 'male' and guest_age >= 5 and guest_age <= 150) or
+        (guest_gender = 'female' and guest_age >= 10 and guest_age <= 150)
+    )
+);
 
-CREATE TABLE room_reservation(room_id number,
-                                                 guest_id number,
-                                                 booking_id number,
-                                                 booking_invoice number,
-                                                check_in_date DATE,
-                                                check_out_date DATE,
-                                                 CONSTRAINT reserv_pk PRIMARY KEY(room_id,guest_id),
-                                                 FOREIGN KEY(room_id) REFERENCES room(room_id),
-                                                 FOREIGN KEY(guest_id) REFERENCES guest(guest_id),
-                                                 reservation_status VARCHAR2(100) DEFAULT 'confirmed' CHECK (reservation_status IN ('confirmed', 'cancelled', 'completed')),
-                                                 payment_status VARCHAR2(100) DEFAULT 'unpaid' CHECK (payment_status IN ('paid', 'unpaid')),
-                                                CONSTRAINT checkout_check CHECK (
-                                                (check_out_date > check_in_date)
-                                                )
-                                                 );
-                                                 
-               
-CREATE TABLE event( event_id number primary key,
-                    event_name varchar2(100),
-                    event_description VARCHAR2(255),
-                    event_type VARCHAR2(100) DEFAULT 'general' CHECK (event_type IN ('general', 'wedding', 'conference', 'seminar')),
-                    event_organizer varchar2(255)
-                                );
-                                
-          
-CREATE TABLE event_in_hotel(event_id number,
-                                              guest_id number,
-                                              reserv_id number,
-                                              start_date date,
-                                              end_date date,
-                                              event_invoice number,
-                                              event_capacity integer,
-                                            event_status VARCHAR2(100) DEFAULT 'scheduled' CHECK (event_status IN ('scheduled', 'ongoing', 'completed', 'cancelled')),
-                                              CONSTRAINT room_hotel_pk PRIMARY KEY(event_id,guest_id),
-                                              CONSTRAINT date_check CHECK (
-                                                (end_date > start_date)
-                                                )
-                                              );
+create table room_reservation(
+    room_id number,
+    guest_id number,
+    booking_id number,
+    booking_invoice number,
+    check_in_date date,
+    check_out_date date,
+    primary key(room_id, guest_id),
+    foreign key(room_id) references room(room_id) on delete cascade,
+    foreign key(guest_id) references guest(guest_id) on delete cascade,
+    reservation_status varchar2(100) default 'confirmed' check (reservation_status in ('confirmed', 'cancelled', 'completed')),
+    payment_status varchar2(100) default 'unpaid' check (payment_status in ('paid', 'unpaid')),
+    constraint checkout_check check (
+        check_out_date > check_in_date
+    )
+);
+
+create table event(
+    event_id number primary key,
+    event_name varchar2(100),
+    event_description varchar2(255),
+    event_type varchar2(100) default 'general' check (event_type in ('general', 'wedding', 'conference', 'seminar')),
+    event_organizer varchar2(255)
+);
+
+create table event_in_hotel(
+    event_id number,
+    guest_id number,
+    reserv_id number,
+    start_date date,
+    end_date date,
+    event_invoice number,
+    event_capacity integer,
+    event_status varchar2(100) default 'scheduled' check (event_status in ('scheduled', 'ongoing', 'completed', 'cancelled')),
+    constraint room_hotel_pk primary key(event_id, guest_id),
+    constraint date_check check (
+        end_date > start_date
+    )
+);
+
 
 
 
