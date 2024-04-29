@@ -31,3 +31,8 @@ update hotel set hotel_phone='0173456789' where hotel_id=1;
 --Deleting row from a table
 INSERT INTO event (event_id, event_name, event_description, event_type, event_organizer) VALUES (6, 'Tangail Art Festival', 'An annual art festival in tangail', 'general', 'Tangail Art Society');
 delete from  event where event_id=6;
+--Union
+select * from room_reservation where payment_status = 'paid'
+union
+select * from room_reservation where reservation_status = 'confirmed';
+
