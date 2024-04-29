@@ -92,24 +92,7 @@ BEGIN
    END LOOP;
 END;
 
---function
-set serveroutput on
-create or replace function eventshow(var1 in varchar) return varchar AS
-value event.event_name%type;
-begin
-  select event_name into value from event where event_id=var1; 
-  DBMS_OUTPUT.PUT_LINE(value);
-   return value;
-end;
-/
---call the function
-set serveroutput on
-declare 
-value varchar(100);
-begin
-value:=eventshow(3);
-end;
-/
+
 --IF /ELSEIF /ELSE
 DECLARE
     TYPE NameArray IS VARRAY(5) OF room.room_id%TYPE;
@@ -130,3 +113,48 @@ BEGIN
         END IF;
     END LOOP;
 END;
+
+--procedure
+CREATE OR REPLACE PROCEDURE findhotel(
+  var1 IN NUMBER,
+  var2 OUT VARCHAR2,
+  var3 IN OUT NUMBER
+)
+AS
+  t_show CHAR(30);
+BEGIN
+  t_show := 'Hotel Name : ';
+  SELECT hotel_name INTO var2 FROM hotel WHERE hotel_id IN (SELECT hotel_id FROM room WHERE room_id=var1);
+  var3 := var1 + 1; 
+  DBMS_OUTPUT.PUT_LINE(t_show || var2 || ' Room ID is : ' || var1 || ' In out parameter: ' || var3);
+END;
+/
+--call procedure using this
+set serveroutput on
+declare 
+room_price room.room_price%type:=1;
+hotel_name hotel.hotel_name%type;
+extra number;
+begin
+findhotel(room_price,hotel_name,extra);
+end;
+/
+
+--function
+set serveroutput on
+create or replace function eventshow(var1 in varchar) return varchar AS
+value event.event_name%type;
+begin
+  select event_name into value from event where event_id=var1; 
+  DBMS_OUTPUT.PUT_LINE(value);
+   return value;
+end;
+/
+--call the function
+set serveroutput on
+declare 
+value varchar(100);
+begin
+value:=eventshow(3);
+end;
+/
