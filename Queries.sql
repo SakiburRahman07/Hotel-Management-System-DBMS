@@ -18,3 +18,6 @@ describe hotel;
 --Modify column definition in the table
 alter table hotel modify notuncolumn integer;
 describe hotel;
+--Rename the column name
+alter table hotel rename column notuncolumn to newcolumn;
+describe hotel;
