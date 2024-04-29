@@ -159,3 +159,7 @@ begin
 value:=eventshow(3);
 end;
 /
+--drop procedure
+drop procedure findhotel;
+--drop function
+drop function eventshow;
