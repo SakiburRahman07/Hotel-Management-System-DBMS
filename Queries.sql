@@ -58,3 +58,8 @@ select sum(room_capacity) from room;
 select room_size,avg(room_price) from room group by room_size;
 --Having
 select hotel_id, room_size, avg(room_price) as avg_price from room group by hotel_id, room_size having min(room_price) > 500;
+--Nested Subquery
+select hotel_name from hotel where hotel_id=
+ (select hotel_id from room where room_id=
+ (select room_id from room_reservation where guest_id=
+ (select guest_id from event_in_hotel where reserv_id=103)));
