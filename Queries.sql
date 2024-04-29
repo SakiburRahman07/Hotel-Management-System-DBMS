@@ -26,3 +26,5 @@ alter table hotel drop column newcolumn;
 describe hotel;
 --Displaying table data using SELECT command
 select * from hotel where hotel_id=1;
+--Updating the data in a table
+update hotel set hotel_phone='0173456789' where hotel_id=1;
