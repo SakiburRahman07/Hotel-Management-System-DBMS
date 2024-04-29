@@ -46,3 +46,11 @@ select * from room_reservation where payment_status = 'unpaid';
 --with clause
 with max_price_room(value) as (select max(room_price) from room)
 select * from room,max_price_room where room.room_price=max_price_room.value;
+--Aggregate Function
+select count(*) from guest;
+select count(*) as Available_room from room;
+select count(unique guest_name) as Unique_name_guest from guest;
+select max(room_price) from room;
+select min(room_price) from room;
+select avg(room_price) from room;
+select sum(room_capacity) from room;
