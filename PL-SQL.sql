@@ -18,8 +18,15 @@ h_id room.hotel_id%type:=1;
 r_price ROOM.ROOM_PRICE%type:=250;
 r_size ROOM.ROOM_SIZE%type:='small';
 r_capacity number:=7;
+r_view ROOM.ROOM_VIEW%type:='sea';
+f_no ROOM.FLOOR_NUMBER%type:=3;
+b_type ROOM.BED_TYPE%type:='queen';
+h_balcony ROOM.HAS_BALCONY%type:='yes';
+no_of_w ROOM.NUMBER_OF_WINDOWS%type:=3;
+r_des ROOM.room_description%type:='well organized';
+
 begin
-insert into room values(r_id,h_id,r_price,r_size,r_capacity);
+insert into room values(r_id,h_id,r_price,r_size,r_capacity,r_view,f_no,b_type,h_balcony,no_of_w,r_des);
 end;
 /
 --row type
@@ -33,7 +40,7 @@ end;
 --Cursor and row count
 set serveroutput on
 declare 
-cursor room_cursor is select * from room;
+cursor room_cursor is select room_id, hotel_id, room_price, room_size, room_capacity from room;
 room_row room%rowtype;
 begin
 open room_cursor;

@@ -1,4 +1,4 @@
--- Creating all tables
+--hotel table
 create table hotel(
     hotel_id number primary key,
     hotel_name varchar2(100),
@@ -13,7 +13,7 @@ create table hotel(
     hotel_city varchar2(100),
     hotel_postcode number,
     number_of_rooms number,
-    hotel_rating number,
+    hotel_rating number check (hotel_rating >= 0 and hotel_rating <= 5),
     hotel_website varchar2(255),
     hotel_description varchar2(255),
     hotel_opening_hour varchar2(100),
@@ -21,7 +21,7 @@ create table hotel(
     has_parking varchar2(100) check (has_parking in ('yes', 'no')),
     has_pool varchar2(100) check (has_pool in ('yes', 'no'))
 );
-
+--room table
 create table room(
     room_id number primary key,
     hotel_id number,
@@ -38,7 +38,7 @@ create table room(
     constraint room_size_ck
         check (room_size in ('small', 'medium', 'large'))
 );
-
+--guest table
 create table guest(
     guest_id number primary key,
     guest_name varchar2(100),
@@ -62,7 +62,7 @@ create table guest(
         (guest_gender = 'female' and guest_age >= 7 and guest_age <= 150)
     )
 );
-
+--room reservation table
 create table room_reservation(
     room_id number,
     guest_id number,
@@ -83,7 +83,7 @@ create table room_reservation(
         check_out_date > check_in_date
     )
 );
-
+--event table
 create table event(
     event_id number primary key,
     event_name varchar2(100),
@@ -100,11 +100,12 @@ create table event(
     event_transportation_info varchar2(255),
     event_terms_condition varchar2(255)
 );
-
+--event in hotel table
 create table event_in_hotel(
     event_id number,
     guest_id number,
-    reserv_id number,
+    hotel_id number,
+    booking_id number,
     start_date date,
     end_date date,
     event_invoice number,
@@ -116,6 +117,9 @@ create table event_in_hotel(
     event_music varchar2(100) check (event_music in ('live', 'dj', 'orchestra', 'other')),
     event_status varchar2(100) default 'scheduled' check (event_status in ('scheduled', 'ongoing', 'completed', 'cancelled')),
     constraint room_hotel_pk primary key(event_id, guest_id),
+    foreign key(event_id) references event(event_id) on delete cascade,
+    foreign key(guest_id) references guest(guest_id) on delete cascade,
+    foreign key(hotel_id) references hotel(hotel_id) on delete cascade,
     constraint date_check check (
         end_date > start_date
     )
@@ -123,20 +127,9 @@ create table event_in_hotel(
 
 
 
-
--- Creating a table that restores the availability of the room
-CREATE TABLE room_registry(room_id number, 
-                                            hotel_id number,
-                                            registry_date date,
-                                            room_availability varchar2(25),
-                                            CONSTRAINT registry_pk PRIMARY KEY(room_id, registry_date),
-                                            CHECK (Room_Availability in ('available' , 'booked' ))
-                                            );
-
 SELECT * FROM hotel;
 SELECT * FROM room;
 SELECT * FROM guest;
 SELECT * FROM event;
 SELECT * FROM room_reservation;
 SELECT * FROM event_in_hotel;
-SELECT * FROM room_registry;	
