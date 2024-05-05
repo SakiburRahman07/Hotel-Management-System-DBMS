@@ -43,9 +43,3 @@ insert into event_in_hotel (event_id, guest_id, hotel_id, booking_id, start_date
 
 
 
--- Inserting demo data into the room_registry table
-INSERT INTO room_registry (room_id, hotel_id, registry_date, room_availability) VALUES (1, 1, TO_DATE('2024-05-10', 'YYYY-MM-DD'), 'available');
-INSERT INTO room_registry (room_id, hotel_id, registry_date, room_availability) VALUES (2, 1, TO_DATE('2024-05-10', 'YYYY-MM-DD'), 'available');
-INSERT INTO room_registry (room_id, hotel_id, registry_date, room_availability) VALUES (3, 2, TO_DATE('2024-05-10', 'YYYY-MM-DD'), 'available');
-INSERT INTO room_registry (room_id, hotel_id, registry_date, room_availability) VALUES (4, 2, TO_DATE('2024-05-10', 'YYYY-MM-DD'), 'booked');
-INSERT INTO room_registry (room_id, hotel_id, registry_date, room_availability) VALUES (5, 3, TO_DATE('2024-05-10', 'YYYY-MM-DD'), 'available');
