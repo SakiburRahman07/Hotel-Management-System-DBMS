@@ -23,3 +23,6 @@ begin
 findhotel(room_price,hotel_name,extra);
 end;
 /
+
+--drop procedure
+drop procedure findhotel;
